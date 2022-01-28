@@ -6,7 +6,7 @@
 /*   By: lleiria- <lleiria-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 12:02:29 by lleiria-          #+#    #+#             */
-/*   Updated: 2022/01/26 16:05:11 by lleiria-         ###   ########.fr       */
+/*   Updated: 2022/01/28 12:35:41 by lleiria-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,27 @@ void	ft_putnbr_fd(int n, int fd)
 		ft_putchar_fd(p + '0', fd);
 }
 
+static	int ft_putnbr_point(unsigned long int val, char *base)
+{
+	int	rtn;
+
+	rtn = 0;
+	if (val >= 16)
+		rtn += ft_putnbr_point(val / 16, base);
+	ft_putchar_fd(base[val % 16], 1);
+	rtn += 1;
+	return (rtn);
+}
+
+unsigned long int	ft_putpoint(void *p)
+{
+	unsigned long long int val;
+	
+	val = (unsigned long long int)p;
+	ft_putstr_fd("0x", 1);
+	return (ft_putnbr_point(val, "0123456789abcdef") + 2);
+}
+
 static int	convert(int count, const char *input, va_list args, int print)
 {
 	if (input[count + 1] == 'c')
@@ -65,6 +86,8 @@ static int	convert(int count, const char *input, va_list args, int print)
 		ft_putnbr_fd(va_arg(args, int), 1);
 	else if (input[count + 1] == '%')
 		ft_putchar_fd('%', 1);
+	else if (input[count +1] == 'p')
+		ft_putpoint(va_arg(args, long unsigned int *));
 	print++;
 	return (print);
 }
@@ -115,4 +138,8 @@ void	main()
 	ft_printf("Hello World N %i (com i negativo)\n", -42);
 	printf("So many %% in this main\n");
 	ft_printf("So many %% in this main\n");
+	int x = 50;
+   	int *ptr = &x;
+   	printf("The address is: %p, the value is %d\n", ptr, *ptr);
+	ft_printf("The address is: %p, the value is %d\n", ptr, *ptr);
 }
