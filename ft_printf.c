@@ -6,7 +6,7 @@
 /*   By: lleiria- <lleiria-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 12:02:29 by lleiria-          #+#    #+#             */
-/*   Updated: 2022/01/28 16:45:07 by lleiria-         ###   ########.fr       */
+/*   Updated: 2022/02/01 15:52:04 by lleiria-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,20 +76,69 @@ unsigned long int	ft_putpoint(void *p)
 	return (ft_putnbr_point(val, "0123456789abcdef") + 2);
 }
 
-long int ft_puthex (long int nbr, int fb, char flag)
+size_t	ft_strlen(const char	*str)
 {
-	if (flag == 'x')
-	{
-		int	div;
-		int rest;
+	size_t	n;
 
-		div = 1;
-		while (div != 0)
+	n = 0;
+	while (str[n] != '\0')
+		n++;
+	return (n);
+}
+
+char	*ft_reverse(char *s)
+{
+	char tmp;
+    int b;
+    int e;
+
+    b = 0;
+    e = ft_strlen(s) - 1;
+    while (b < e)
+    {
+        tmp = s[b];
+        s[b] = s[e];
+        s[e] = tmp;
+        e--;
+        b++;
+    }
+    return (s);
+}
+
+void ft_puthex (long int nbr, char flag)
+{
+	char	hexa[100];
+	int		tmp;
+	int		n;
+	
+	n = 0;
+	while (nbr != 0)
+	{
+		tmp = 0;
+		tmp = nbr % 16;
+		if (tmp < 10)
 		{
-			div = nbr / 16;
-			rest = nbr % 16);
+			hexa[n] = tmp + '0';
+			n++;
+		}
+		else
+		{
+			if (flag == 'X')
+			{
+				hexa[n] = tmp + 55;
+				n++;
+			}
+			else if (flag == 'x')
+			{
+				hexa[n] = tmp + 87;
+				n++;
+			}
 		}
 	}
+	ft_reverse(hexa);
+	ft_putstr_fd("0x", 1);
+	ft_putstr_fd(hexa, 1);
+	
 }
 
 static int	convert(int count, const char *input, va_list args, int print)
@@ -105,7 +154,7 @@ static int	convert(int count, const char *input, va_list args, int print)
 	else if (input[count + 1] == 'p')
 		ft_putpoint(va_arg(args, long unsigned int *));
 	else if (input[count + 1] == 'x' | input[count + 1] == 'X')
-		ft_puthex(va_arg(args, long int), 1, input[count + 1]);
+		ft_puthex(va_arg(args, long int), input[count + 1]);
 	print++;
 	return (print);
 }
@@ -162,4 +211,7 @@ void	main()
 	ft_printf("The address is: %p, the value is %d\n", ptr, *ptr);
 	int data = 29;
     printf("%x (com x)\n", data);
+	ft_printf("%x (com x)\n", data);
+	printf("%X (com X)\n", data);
+	ft_printf("%X (com X)\n", data);
 }
