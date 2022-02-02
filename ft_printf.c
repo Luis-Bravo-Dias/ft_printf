@@ -6,7 +6,7 @@
 /*   By: lleiria- <lleiria-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 12:02:29 by lleiria-          #+#    #+#             */
-/*   Updated: 2022/02/01 15:52:04 by lleiria-         ###   ########.fr       */
+/*   Updated: 2022/02/02 17:08:42 by lleiria-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,11 +134,25 @@ void ft_puthex (long int nbr, char flag)
 				n++;
 			}
 		}
+		nbr = nbr / 16;
 	}
 	ft_reverse(hexa);
-	ft_putstr_fd("0x", 1);
 	ft_putstr_fd(hexa, 1);
 	
+}
+
+void	ft_putun(int nbr)
+{
+	unsigned int unbr;
+	
+	if (nbr < 0)
+	{
+		unbr = (unsigned int)(nbr * -1);
+		unbr = 4294967296 - unbr;
+	}
+	else
+		unbr = (unsigned)nbr;
+	ft_putnbr_fd(unbr, 1);
 }
 
 static int	convert(int count, const char *input, va_list args, int print)
@@ -155,6 +169,8 @@ static int	convert(int count, const char *input, va_list args, int print)
 		ft_putpoint(va_arg(args, long unsigned int *));
 	else if (input[count + 1] == 'x' | input[count + 1] == 'X')
 		ft_puthex(va_arg(args, long int), input[count + 1]);
+	/*else if (input[count + 1] == 'u')
+		ft_putun(va_arg(args, unsigned int));*/
 	print++;
 	return (print);
 }
@@ -214,4 +230,8 @@ void	main()
 	ft_printf("%x (com x)\n", data);
 	printf("%X (com X)\n", data);
 	ft_printf("%X (com X)\n", data);
+	printf("%u (com u negativo)\n", -10);
+	ft_printf("%u (com u negativo)\n", -10);
+    printf("%u (com u positivo)\n", 10);
+    ft_printf("%u (com u positivo)\n", 10);
 }
