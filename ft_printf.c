@@ -6,7 +6,7 @@
 /*   By: lleiria- <lleiria-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 12:02:29 by lleiria-          #+#    #+#             */
-/*   Updated: 2022/02/03 12:34:18 by lleiria-         ###   ########.fr       */
+/*   Updated: 2022/02/04 15:58:56 by lleiria-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,23 +17,27 @@
 #include <limits.h>
 //#include "ft_printf.h"
 
-void	ft_putchar(char c)
+int ft_putchar(char c)
 {
 	write(1, &c, 1);
+	return (1);
 }
 
-void	ft_putstr(char *s)
+int ft_putstr(char *s)
 {
 	int	c;
+	int counter;
 
+	counter = 0;
 	if (!s)
-		return ;
+		return (ft_putstr("(null)"));
 	c = 0;
 	while (s[c] != '\0')
 	{
-		ft_putchar(s[c]);
+		counter += ft_putchar(s[c]);
 		c++;
 	}
+	return (counter);
 }
 
 void	ft_putnbr(int n)
@@ -56,25 +60,22 @@ void	ft_putnbr(int n)
 		ft_putchar(p + '0');
 }
 
-static	int ft_putnbr_point(unsigned long int val, char *base)
+void	ft_putnbr_point(unsigned long int val, char *base)
 {
-	int	rtn;
-
-	rtn = 0;
 	if (val >= 16)
-		rtn += ft_putnbr_point(val / 16, base);
+	{
+		ft_putnbr_point(val / 16, base);
+	}
 	ft_putchar(base[val % 16]);
-	rtn += 1;
-	return (rtn);
 }
 
-unsigned long int	ft_putpoint(void *p)
+void	ft_putpoint(void *p)
 {
-	unsigned long long int val;
-	
+	unsigned long long int	val;
+
 	val = (unsigned long long int)p;
 	ft_putstr("0x");
-	return (ft_putnbr_point(val, "0123456789abcdef") + 2);
+	ft_putnbr_point(val, "0123456789abcdef");
 }
 
 size_t	ft_strlen(const char	*str)
@@ -87,93 +88,57 @@ size_t	ft_strlen(const char	*str)
 	return (n);
 }
 
-char	*ft_reverse(char *s)
+void	ft_putnbr_base(unsigned int nbr, char *base, int nbase)
 {
-	char tmp;
-    int b;
-    int e;
-
-    b = 0;
-    e = ft_strlen(s) - 1;
-    while (b < e)
-    {
-        tmp = s[b];
-        s[b] = s[e];
-        s[e] = tmp;
-        e--;
-        b++;
-    }
-    return (s);
-}
-
-void ft_puthex (long int nbr, char flag)
-{
-	char	hexa[100];
-	int		tmp;
-	int		n;
-	
-	n = 0;
-	while (nbr != 0)
+	if (nbr < 0)
 	{
-		tmp = 0;
-		tmp = nbr % 16;
-		if (tmp < 10)
-		{
-			hexa[n] = tmp + '0';
-			n++;
-		}
-		else
-		{
-			if (flag == 'X')
-			{
-				hexa[n] = tmp + 55;
-				n++;
-			}
-			else if (flag == 'x')
-			{
-				hexa[n] = tmp + 87;
-				n++;
-			}
-		}
-		nbr = nbr / 16;
+		nbr = nbr * -1;
+		ft_putchar('-');
 	}
-	ft_reverse(hexa);
-	ft_putstr(hexa);
-	
+	if (nbr >= nbase)
+	{
+		ft_putnbr_base(nbr / nbase, base, nbase);
+	}
+	ft_putchar(base[nbr % nbase]);
 }
 
 void	ft_putun(long int nb)
 {
-	unsigned int unbr;
-	
+	unsigned int	unbr;
+
 	if (nb < 0)
 	{
-		unbr = (unsigned int)(nb * -1);
+		unbr = (unsigned int)nb * -1;
 		unbr = 4294967296 - unbr;
 	}
-	else
+	else if (nb >= 0)
 		unbr = (unsigned)nb;
-	ft_putnbr(unbr);
+	ft_putnbr_base(unbr, "0123456789", 10);
 }
 
 static int	convert(int count, const char *input, va_list args, int print)
 {
-	/*if (input[count + 1] == 'c')
-		ft_putchar((char)va_arg(args, int));
+	int counter;
+	
+	counter = 0;
+	if (input[count + 1] == 'c')
+		counter += ft_putchar((char)va_arg(args, int));
 	else if (input[count + 1] == 's')
-		ft_putstr(va_arg(args, char *));
-	else if (input[count + 1] == 'd' | input[count + 1] == 'i')
-		ft_putnbr(va_arg(args, int));
+		counter += ft_putstr(va_arg(args, char *));
+	/*else if (input[count + 1] == 'd' | input[count + 1] == 'i')
+		counter += ft_putnbr(va_arg(args, int));
 	else if (input[count + 1] == '%')
-		ft_putchar('%');
+		counter += ft_putchar('%');
 	else if (input[count + 1] == 'p')
-		ft_putpoint(va_arg(args, long unsigned int *));*/
-	/*else */if (input[count + 1] == 'x' | input[count + 1] == 'X')
-		ft_puthex(va_arg(args, long int), input[count + 1]);
-	/*else if (input[count + 1] == 'u')
-		ft_putun(va_arg(args, unsigned int));*/
+		counter += ft_putpoint(va_arg(args, long unsigned int *));
+	else if (input[count + 1] == 'x')
+		counter += ft_putnbr_base(va_arg(args, long int), "0123456789abcdef", 16);
+	else if (input[count + 1] == 'X')
+		counter += ft_putnbr_base(va_arg(args, long int), "0123456789ABCDEF", 16);
+	else if (input[count + 1] == 'u')
+		counter += ft_putun(va_arg(args, unsigned int));*/
 	print++;
-	return (print);
+	return (counter);
 }
 
 int	ft_printf(const char *input, ...)
@@ -204,7 +169,7 @@ int	ft_printf(const char *input, ...)
 	return (print);
 }
 
-/*void	main()
+/*int	main()
 {
 	printf("Hello world (normal)\n");
 	ft_printf("Hello World (normal)\n");
@@ -257,7 +222,7 @@ int main()
     int hex_number_neg = -1;
     char *addr_null = NULL;
     
-    /*printf("\n-------- ORIGINAL --------\n");
+    printf("\n-------- ORIGINAL --------\n");
     text_original = printf("hello World\n");
     printf("%d\n", text_original);
     text_original = printf("Escapes -> \\\\\\");
@@ -275,17 +240,17 @@ int main()
     text_original = printf("Numero Inteiro (+) ->  %i\n", numero_pos);
     printf("%d\n", text_original);
     text_original = printf("Numero Inteiro (-) -> %d\n", numero_neg);
-    printf("%d\n", text_original);*/
+    printf("%d\n", text_original);
     //%u
     text_original = printf("Numero Inteiro Unsigned (+) -> %u\n", numero_pos);
     printf("%d\n", text_original);
     text_original = printf("Numero Inteiro Unsigned (-) -> %u\n", numero_neg);
     printf("%d\n", text_original);
     //%s
-    /*text_original = printf("Short String -> %s\n", short_string);
+    text_original = printf("Short String -> %s\n", short_string);
     printf("%d\n", text_original);
     text_original = printf("Long String  -> %s\n", long_string);
-    printf("%d\n", text_original);*/
+    printf("%d\n", text_original);
     //%x
     text_original = printf("Hex Number (Lower) (+) -> %x\n", hex_number_pos);
     printf("%d\n", text_original);
@@ -297,14 +262,14 @@ int main()
     text_original = printf("Hex Number (Upper) (-) -> %X\n", hex_number_neg);
     printf("%d\n", text_original);
     //%p
-    /*text_original = printf("Addres Pointer -> %p\n", ULONG_MAX);
+    text_original = printf("Addres Pointer -> %p\n", ULONG_MAX);
     printf("%d\n", text_original);
     text_original = printf("Addres Pointer (Null) -> %p\n", addr_null);
-    printf("%d\n", text_original);*/
+    printf("%d\n", text_original);
     text_original = printf("--------------------------\n");
     
     printf("---------- FAKE ----------\n");
-    /*text_fake = ft_printf("hello World\n");
+    text_fake = ft_printf("hello World\n");
     ft_printf("%d\n", text_fake);
     text_fake = ft_printf("Escapes -> \\\\\\");
     ft_printf("\n");
@@ -321,17 +286,17 @@ int main()
     text_fake = ft_printf("Numero Inteiro (+) ->  %i\n", numero_pos);
     ft_printf("%d\n", text_fake);
     text_fake = ft_printf("Numero Inteiro (-) -> %d\n", numero_neg);
-    ft_printf("%d\n", text_fake);*/
+    ft_printf("%d\n", text_fake);
     //%u
     text_fake = ft_printf("Numero Inteiro Unsigned (+) -> %u\n", numero_pos);
     ft_printf("%d\n", text_fake);
     text_fake = ft_printf("Numero Inteiro Unsigned (-) -> %u\n", numero_neg);
     ft_printf("%d\n", text_fake);
     //%s
-    /*text_fake = ft_printf("Short String -> %s\n", short_string);
+    text_fake = ft_printf("Short String -> %s\n", short_string);
     ft_printf("%d\n", text_fake);
     text_fake = ft_printf("Long String  -> %s\n", long_string);
-    ft_printf("%d\n", text_fake);*/
+    ft_printf("%d\n", text_fake);
     //%x
     text_fake = ft_printf("Hex Number (Lower) (+) -> %x\n", hex_number_pos);
     ft_printf("%d\n", text_fake);
@@ -343,9 +308,9 @@ int main()
     text_fake = ft_printf("Hex Number (Upper) (-) -> %X\n", hex_number_neg);
     ft_printf("%d\n", text_fake);
     //%p
-    /*text_fake = ft_printf("Addres Pointer -> %p\n", ULONG_MAX);
+    text_fake = ft_printf("Addres Pointer -> %p\n", ULONG_MAX);
     ft_printf("%d\n", text_fake);
     text_fake = ft_printf("Addres Pointer (Null) -> %p\n", addr_null);
-    ft_printf("%d\n", text_fake);*/
+    ft_printf("%d\n", text_fake);
 	printf("--------------------------\n");
 }
