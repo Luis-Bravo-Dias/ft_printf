@@ -6,7 +6,7 @@
 /*   By: lleiria- <lleiria-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 12:02:29 by lleiria-          #+#    #+#             */
-/*   Updated: 2022/02/04 15:58:56 by lleiria-         ###   ########.fr       */
+/*   Updated: 2022/02/07 11:48:35 by lleiria-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,72 +40,78 @@ int ft_putstr(char *s)
 	return (counter);
 }
 
-void	ft_putnbr(int n)
+int	ft_putnbr(int n)
 {
 	unsigned int	p;
+	int				counter;
 
+	counter = 0;
 	if (n < 0)
 	{
 		p = (unsigned int)(-n);
-		ft_putchar('-');
+		counter += ft_putchar('-');
 	}
 	else
 		p = (unsigned int)n;
 	if (p >= 10)
 	{
-		ft_putnbr(p / 10);
-		ft_putnbr(p % 10);
+		counter += ft_putnbr(p / 10);
+		counter += ft_putnbr(p % 10);
 	}
 	else
-		ft_putchar(p + '0');
+		counter += ft_putchar(p + '0');
+	return (counter);
 }
 
-void	ft_putnbr_point(unsigned long int val, char *base)
+int	ft_putnbr_point(unsigned long int val, char *base)
 {
+	int counter;
+
+	counter = 0;
 	if (val >= 16)
 	{
-		ft_putnbr_point(val / 16, base);
+		counter += ft_putnbr_point(val / 16, base);
 	}
-	ft_putchar(base[val % 16]);
+	counter += ft_putchar(base[val % 16]);
+	return (counter);
 }
 
-void	ft_putpoint(void *p)
+int	ft_putpoint(void *p)
 {
 	unsigned long long int	val;
+	int counter;
 
+	counter = 0;
 	val = (unsigned long long int)p;
-	ft_putstr("0x");
-	ft_putnbr_point(val, "0123456789abcdef");
+	counter += ft_putstr("0x");
+	counter += ft_putnbr_point(val, "0123456789abcdef");
+	return (counter);
 }
 
-size_t	ft_strlen(const char	*str)
+int	ft_putnbr_base(unsigned int nbr, char *base, int nbase)
 {
-	size_t	n;
+	int	counter;
 
-	n = 0;
-	while (str[n] != '\0')
-		n++;
-	return (n);
-}
-
-void	ft_putnbr_base(unsigned int nbr, char *base, int nbase)
-{
+	counter = 0;
 	if (nbr < 0)
 	{
 		nbr = nbr * -1;
-		ft_putchar('-');
+		counter += ft_putchar('-');
 	}
 	if (nbr >= nbase)
 	{
-		ft_putnbr_base(nbr / nbase, base, nbase);
+		counter += ft_putnbr_base(nbr / nbase, base, nbase);
 	}
-	ft_putchar(base[nbr % nbase]);
+	counter += ft_putchar(base[nbr % nbase]);
+	return (counter);
 }
 
-void	ft_putun(long int nb)
+int	ft_putun(long int nb)
 {
 	unsigned int	unbr;
+	int				counter;	
 
+	counter = 0;
 	if (nb < 0)
 	{
 		unbr = (unsigned int)nb * -1;
@@ -113,60 +119,59 @@ void	ft_putun(long int nb)
 	}
 	else if (nb >= 0)
 		unbr = (unsigned)nb;
-	ft_putnbr_base(unbr, "0123456789", 10);
+	counter += ft_putnbr_base(unbr, "0123456789", 10);
 }
 
-static int	convert(int count, const char *input, va_list args, int print)
+static int	convert(int n, const char *input, va_list args)
 {
-	int counter;
+	int	counter;
 	
 	counter = 0;
-	if (input[count + 1] == 'c')
+	if (input[n + 1] == 'c')
 		counter += ft_putchar((char)va_arg(args, int));
-	else if (input[count + 1] == 's')
+	else if (input[n + 1] == 's')
 		counter += ft_putstr(va_arg(args, char *));
-	/*else if (input[count + 1] == 'd' | input[count + 1] == 'i')
+	else if (input[n + 1] == 'd' | input[n + 1] == 'i')
 		counter += ft_putnbr(va_arg(args, int));
-	else if (input[count + 1] == '%')
+	else if (input[n + 1] == '%')
 		counter += ft_putchar('%');
-	else if (input[count + 1] == 'p')
+	else if (input[n + 1] == 'p')
 		counter += ft_putpoint(va_arg(args, long unsigned int *));
-	else if (input[count + 1] == 'x')
+	else if (input[n + 1] == 'x')
 		counter += ft_putnbr_base(va_arg(args, long int), "0123456789abcdef", 16);
-	else if (input[count + 1] == 'X')
+	else if (input[n + 1] == 'X')
 		counter += ft_putnbr_base(va_arg(args, long int), "0123456789ABCDEF", 16);
-	else if (input[count + 1] == 'u')
-		counter += ft_putun(va_arg(args, unsigned int));*/
-	print++;
+	else if (input[n + 1] == 'u')
+		counter += ft_putun(va_arg(args, unsigned int));
 	return (counter);
 }
 
 int	ft_printf(const char *input, ...)
 {
 	va_list	args;
-	int		count;
-	int		print;
+	int		n;
+	int		counter;
 
-	count = 0;
+	n = 0;
+	counter = 0;
 	va_start(args, input);
 	if (!input)
 		return (0);
-	while (input[count])
+	while (input[n])
 	{
-		if (input[count] == '%')
+		if (input[n] == '%')
 		{
-			print = convert(count, input, args, print);
-			count++;
+			counter += convert(n, input, args);
+			n++;
 		}
 		else
 		{
-			ft_putchar(input[count]);
-			print++;
+			counter += ft_putchar(input[n]);
 		}
-		count++;
+		n++;
 	}
 	va_end(args);
-	return (print);
+	return (counter);
 }
 
 /*int	main()
