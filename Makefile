@@ -6,7 +6,7 @@
 #    By: lleiria- <lleiria-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/24 12:02:58 by lleiria-          #+#    #+#              #
-#    Updated: 2022/01/24 12:03:01 by lleiria-         ###   ########.fr        #
+#    Updated: 2022/02/07 16:53:18 by lleiria-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,17 +16,13 @@ CFLAGS = -Wall -Werror -Wextra -g
 
 NAME = libftprintf.a
 
-SRC = 	Libft/ft_strlen.c				\
-		Libft/ft_itoa_base.c			\
-		ft_putescapes.c 				\
-		ft_printf.c						\
-		ft_putvar.c						\
-		ft_putchar.c					\
-		ft_putstr.c						\
-		ft_putunnumbers.c				\
-		ft_putnumbers.c					\
-		ft_hexnumbers.c					\
-		ft_putaddr.c					\
+SRC = 	ft_putchar.c				\
+		ft_putstr.c					\
+		ft_putnbr.c					\
+		ft_putpoint.c				\
+		ft_putnbr_base.c			\
+		ft_putun.c					\
+		ft_printf.c					\
 		
 
 OBJS = $(SRC:.c=.o)

@@ -6,7 +6,7 @@
 /*   By: lleiria- <lleiria-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 16:06:37 by lleiria-          #+#    #+#             */
-/*   Updated: 2022/02/07 16:18:49 by lleiria-         ###   ########.fr       */
+/*   Updated: 2022/02/07 16:59:27 by lleiria-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	ft_putun(long int nb)
 	unsigned int	unbr;
 	int				counter;	
 
+	unbr = 0;
 	counter = 0;
 	if (nb < 0)
 	{

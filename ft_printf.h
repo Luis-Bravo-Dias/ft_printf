@@ -6,16 +6,21 @@
 /*   By: lleiria- <lleiria-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 12:02:45 by lleiria-          #+#    #+#             */
-/*   Updated: 2022/01/26 12:16:31 by lleiria-         ###   ########.fr       */
+/*   Updated: 2022/02/07 16:55:40 by lleiria-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#define FT_PRINTF_H
-
-//#include "Libft/libft.h"
-#include <stdarg.h>
-#include <unistd.h>
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
+# include <stdarg.h>
+# include <unistd.h>
 
 int	ft_printf(const char *input, ...);
+int	ft_putchar(char c);
+int	ft_putstr(char *s);
+int	ft_putnbr(int n);
+int	ft_putpoint(void *p);
+int	ft_putnbr_base(unsigned int nbr, char *base, int nbase);
+int	ft_putun(long int nb);
 
 #endif

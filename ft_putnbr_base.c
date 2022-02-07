@@ -6,13 +6,13 @@
 /*   By: lleiria- <lleiria-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 15:56:00 by lleiria-          #+#    #+#             */
-/*   Updated: 2022/02/07 16:13:56 by lleiria-         ###   ########.fr       */
+/*   Updated: 2022/02/07 16:57:45 by lleiria-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 int	ft_putchar(char c);
 
-int	ft_putnbr_base(unsigned int nbr, char *base, int nbase)
+int	ft_putnbr_base(unsigned int nbr, char *base, unsigned int nbase)
 {
 	int	counter;
 

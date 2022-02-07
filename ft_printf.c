@@ -6,7 +6,7 @@
 /*   By: lleiria- <lleiria-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 12:02:29 by lleiria-          #+#    #+#             */
-/*   Updated: 2022/02/07 16:28:45 by lleiria-         ###   ########.fr       */
+/*   Updated: 2022/02/07 17:04:12 by lleiria-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <stdarg.h>
 #include "libft/libft.h"
 #include <limits.h>
-//#include "ft_printf.h"
+#include "ft_printf.h"
 
 int	ft_putchar(char c);
 
@@ -114,7 +114,7 @@ int	ft_printf(const char *input, ...)
     ft_printf("%u (com u positivo)\n", 10);
 }*/
 
-/*int main()
+int main()
 {
     system("clear");
     char chr = 'D';
@@ -174,8 +174,8 @@ int	ft_printf(const char *input, ...)
     text_original = printf("Hex Number (Upper) (-) -> %X\n", hex_number_neg);
     printf("%d\n", text_original);
     //%p
-    text_original = printf("Addres Pointer -> %p\n", ULONG_MAX);
-    printf("%d\n", text_original);
+    /*text_original = printf("Addres Pointer -> %p\n", ULONG_MAX);
+    printf("%d\n", text_original);*/
     text_original = printf("Addres Pointer (Null) -> %p\n", addr_null);
     printf("%d\n", text_original);
     text_original = printf("--------------------------\n");
@@ -226,4 +226,3 @@ int	ft_printf(const char *input, ...)
     ft_printf("%d\n", text_fake);
 	printf("--------------------------\n");
 }
-*/
