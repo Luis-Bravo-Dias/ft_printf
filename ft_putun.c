@@ -1,21 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
+/*   ft_putun.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lleiria- <lleiria-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/09 10:31:56 by lleiria-          #+#    #+#             */
-/*   Updated: 2021/11/09 12:21:56 by lleiria-         ###   ########.fr       */
+/*   Created: 2022/02/07 16:06:37 by lleiria-          #+#    #+#             */
+/*   Updated: 2022/02/07 16:18:49 by lleiria-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+int	ft_putnbr_base(unsigned int nbr, char *base, int nbase);
 
-void	ft_lstdelone(t_list *lst, void (*del)(void *))
+int	ft_putun(long int nb)
 {
-	if (!lst)
-		return ;
-	del(lst->content);
-	free(lst);
+	unsigned int	unbr;
+	int				counter;	
+
+	counter = 0;
+	if (nb < 0)
+	{
+		unbr = (unsigned int)nb * -1;
+		unbr = 4294967296 - unbr;
+	}
+	else if (nb >= 0)
+		unbr = (unsigned)nb;
+	counter += ft_putnbr_base(unbr, "0123456789", 10);
+	return (counter);
 }

@@ -6,7 +6,7 @@
 /*   By: lleiria- <lleiria-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 12:02:29 by lleiria-          #+#    #+#             */
-/*   Updated: 2022/02/07 12:08:20 by lleiria-         ###   ########.fr       */
+/*   Updated: 2022/02/07 16:28:45 by lleiria-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,110 +17,17 @@
 #include <limits.h>
 //#include "ft_printf.h"
 
-int	ft_putchar(char c)
-{
-	write(1, &c, 1);
-	return (1);
-}
+int	ft_putchar(char c);
 
-int	ft_putstr(char *s)
-{
-	int	c;
-	int	counter;
+int	ft_putstr(char *s);
 
-	counter = 0;
-	if (!s)
-		return (ft_putstr("(null)"));
-	c = 0;
-	while (s[c] != '\0')
-	{
-		counter += ft_putchar(s[c]);
-		c++;
-	}
-	return (counter);
-}
+int	ft_putnbr(int n);
 
-int	ft_putnbr(int n)
-{
-	unsigned int	p;
-	int				counter;
+int	ft_putpoint(void *p);
 
-	counter = 0;
-	if (n < 0)
-	{
-		p = (unsigned int)(-n);
-		counter += ft_putchar('-');
-	}
-	else
-		p = (unsigned int)n;
-	if (p >= 10)
-	{
-		counter += ft_putnbr(p / 10);
-		counter += ft_putnbr(p % 10);
-	}
-	else
-		counter += ft_putchar(p + '0');
-	return (counter);
-}
+int	ft_putnbr_base(unsigned int nbr, char *base, int nbase);
 
-int	ft_putnbr_point(unsigned long int val, char *base)
-{
-	int	counter;
-
-	counter = 0;
-	if (val >= 16)
-	{
-		counter += ft_putnbr_point(val / 16, base);
-	}
-	counter += ft_putchar(base[val % 16]);
-	return (counter);
-}
-
-int	ft_putpoint(void *p)
-{
-	unsigned long long int	val;
-	int						counter;
-
-	counter = 0;
-	val = (unsigned long long int)p;
-	counter += ft_putstr("0x");
-	counter += ft_putnbr_point(val, "0123456789abcdef");
-	return (counter);
-}
-
-int	ft_putnbr_base(unsigned int nbr, char *base, int nbase)
-{
-	int	counter;
-
-	counter = 0;
-	if (nbr < 0)
-	{
-		nbr = nbr * -1;
-		counter += ft_putchar('-');
-	}
-	if (nbr >= nbase)
-	{
-		counter += ft_putnbr_base(nbr / nbase, base, nbase);
-	}
-	counter += ft_putchar(base[nbr % nbase]);
-	return (counter);
-}
-
-int	ft_putun(long int nb)
-{
-	unsigned int	unbr;
-	int				counter;	
-
-	counter = 0;
-	if (nb < 0)
-	{
-		unbr = (unsigned int)nb * -1;
-		unbr = 4294967296 - unbr;
-	}
-	else if (nb >= 0)
-		unbr = (unsigned)nb;
-	counter += ft_putnbr_base(unbr, "0123456789", 10);
-}
+int	ft_putun(long int nb);
 
 static int	convert(int n, const char *input, va_list args)
 {

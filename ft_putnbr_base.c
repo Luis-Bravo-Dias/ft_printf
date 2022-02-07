@@ -1,35 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_tolower.c                                       :+:      :+:    :+:   */
+/*   ft_putnbr_base.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lleiria- <lleiria-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/20 14:52:29 by lleiria-          #+#    #+#             */
-/*   Updated: 2021/10/28 09:47:20 by lleiria-         ###   ########.fr       */
+/*   Created: 2022/02/07 15:56:00 by lleiria-          #+#    #+#             */
+/*   Updated: 2022/02/07 16:13:56 by lleiria-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include <stdio.h>
-#include "libft.h"
+int	ft_putchar(char c);
 
-int	ft_tolower(int ch)
+int	ft_putnbr_base(unsigned int nbr, char *base, int nbase)
 {
-	if (ch >= 'A' && ch <= 'Z')
-		return (ch + 32);
-	return (ch);
+	int	counter;
+
+	counter = 0;
+	if (nbr < 0)
+	{
+		nbr = nbr * -1;
+		counter += ft_putchar('-');
+	}
+	if (nbr >= nbase)
+	{
+		counter += ft_putnbr_base(nbr / nbase, base, nbase);
+	}
+	counter += ft_putchar(base[nbr % nbase]);
+	return (counter);
 }
-/*
-int main() {
-    char c;
-
-    c = 'm';
-    printf("%c -> %c", c, ft_tolower(c));
-
-    c = 'D';
-    printf("\n%c -> %c", c, ft_tolower(c));
-
-    c = '9';
-    printf("\n%c -> %c", c, ft_tolower(c));
-    return 0;
-}*/

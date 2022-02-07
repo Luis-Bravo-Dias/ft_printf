@@ -1,35 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstmap.c                                        :+:      :+:    :+:   */
+/*   ft_putnbr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lleiria- <lleiria-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/09 14:42:26 by lleiria-          #+#    #+#             */
-/*   Updated: 2021/11/10 11:39:45 by lleiria-         ###   ########.fr       */
+/*   Created: 2022/02/07 15:23:51 by lleiria-          #+#    #+#             */
+/*   Updated: 2022/02/07 16:14:16 by lleiria-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+int	ft_putchar(char c);
 
-t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
+int	ft_putnbr(int n)
 {
-	t_list	*new;
-	t_list	*safe;
+	unsigned int	p;
+	int				counter;
 
-	if (!lst)
-		return (NULL);
-	new = 0;
-	while (lst)
+	counter = 0;
+	if (n < 0)
 	{
-		safe = ft_lstnew(f(lst->content));
-		if (!safe)
-		{
-			ft_lstclear(&new, del);
-			return (NULL);
-		}
-		ft_lstadd_back(&new, safe);
-		lst = lst->next;
+		p = (unsigned int)(-n);
+		counter += ft_putchar('-');
 	}
-	return (new);
+	else
+		p = (unsigned int)n;
+	if (p >= 10)
+	{
+		counter += ft_putnbr(p / 10);
+		counter += ft_putnbr(p % 10);
+	}
+	else
+		counter += ft_putchar(p + '0');
+	return (counter);
 }

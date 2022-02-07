@@ -1,26 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew.c                                        :+:      :+:    :+:   */
+/*   ft_putstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lleiria- <lleiria-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/05 10:37:22 by lleiria-          #+#    #+#             */
-/*   Updated: 2021/11/11 16:01:33 by lleiria-         ###   ########.fr       */
+/*   Created: 2022/02/07 14:55:49 by lleiria-          #+#    #+#             */
+/*   Updated: 2022/02/07 16:14:53 by lleiria-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-//#include <stdio.h>
+int	ft_putchar(char c);
 
-t_list	*ft_lstnew(void *content)
+int	ft_putstr(char *s)
 {
-	t_list	*head;
+	int	c;
+	int	counter;
 
-	head = (t_list *)malloc(sizeof(t_list));
-	if (head == NULL)
-		return (0);
-	head->content = content;
-	head->next = NULL;
-	return (head);
+	counter = 0;
+	if (!s)
+		return (ft_putstr("(null)"));
+	c = 0;
+	while (s[c] != '\0')
+	{
+		counter += ft_putchar(s[c]);
+		c++;
+	}
+	return (counter);
 }
