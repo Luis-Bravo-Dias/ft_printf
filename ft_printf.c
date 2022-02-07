@@ -6,7 +6,7 @@
 /*   By: lleiria- <lleiria-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 12:02:29 by lleiria-          #+#    #+#             */
-/*   Updated: 2022/02/07 11:48:35 by lleiria-         ###   ########.fr       */
+/*   Updated: 2022/02/07 12:08:20 by lleiria-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,16 @@
 #include <limits.h>
 //#include "ft_printf.h"
 
-int ft_putchar(char c)
+int	ft_putchar(char c)
 {
 	write(1, &c, 1);
 	return (1);
 }
 
-int ft_putstr(char *s)
+int	ft_putstr(char *s)
 {
 	int	c;
-	int counter;
+	int	counter;
 
 	counter = 0;
 	if (!s)
@@ -65,7 +65,7 @@ int	ft_putnbr(int n)
 
 int	ft_putnbr_point(unsigned long int val, char *base)
 {
-	int counter;
+	int	counter;
 
 	counter = 0;
 	if (val >= 16)
@@ -79,7 +79,7 @@ int	ft_putnbr_point(unsigned long int val, char *base)
 int	ft_putpoint(void *p)
 {
 	unsigned long long int	val;
-	int counter;
+	int						counter;
 
 	counter = 0;
 	val = (unsigned long long int)p;
@@ -124,26 +124,26 @@ int	ft_putun(long int nb)
 
 static int	convert(int n, const char *input, va_list args)
 {
-	int	counter;
-	
-	counter = 0;
+	int	c;
+
+	c = 0;
 	if (input[n + 1] == 'c')
-		counter += ft_putchar((char)va_arg(args, int));
+		c += ft_putchar((char)va_arg(args, int));
 	else if (input[n + 1] == 's')
-		counter += ft_putstr(va_arg(args, char *));
+		c += ft_putstr(va_arg(args, char *));
 	else if (input[n + 1] == 'd' | input[n + 1] == 'i')
-		counter += ft_putnbr(va_arg(args, int));
+		c += ft_putnbr(va_arg(args, int));
 	else if (input[n + 1] == '%')
-		counter += ft_putchar('%');
+		c += ft_putchar('%');
 	else if (input[n + 1] == 'p')
-		counter += ft_putpoint(va_arg(args, long unsigned int *));
+		c += ft_putpoint(va_arg(args, long unsigned int *));
 	else if (input[n + 1] == 'x')
-		counter += ft_putnbr_base(va_arg(args, long int), "0123456789abcdef", 16);
+		c += ft_putnbr_base(va_arg(args, long int), "0123456789abcdef", 16);
 	else if (input[n + 1] == 'X')
-		counter += ft_putnbr_base(va_arg(args, long int), "0123456789ABCDEF", 16);
+		c += ft_putnbr_base(va_arg(args, long int), "0123456789ABCDEF", 16);
 	else if (input[n + 1] == 'u')
-		counter += ft_putun(va_arg(args, unsigned int));
-	return (counter);
+		c += ft_putun(va_arg(args, unsigned int));
+	return (c);
 }
 
 int	ft_printf(const char *input, ...)
@@ -207,7 +207,7 @@ int	ft_printf(const char *input, ...)
     ft_printf("%u (com u positivo)\n", 10);
 }*/
 
-int main()
+/*int main()
 {
     system("clear");
     char chr = 'D';
@@ -319,3 +319,4 @@ int main()
     ft_printf("%d\n", text_fake);
 	printf("--------------------------\n");
 }
+*/
