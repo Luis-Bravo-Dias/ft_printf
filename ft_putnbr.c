@@ -6,11 +6,11 @@
 /*   By: lleiria- <lleiria-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 15:23:51 by lleiria-          #+#    #+#             */
-/*   Updated: 2022/02/07 16:14:16 by lleiria-         ###   ########.fr       */
+/*   Updated: 2022/02/08 12:19:04 by lleiria-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_putchar(char c);
+#include "ft_printf.h"
 
 int	ft_putnbr(int n)
 {

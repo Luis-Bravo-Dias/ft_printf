@@ -6,28 +6,15 @@
 /*   By: lleiria- <lleiria-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 12:02:29 by lleiria-          #+#    #+#             */
-/*   Updated: 2022/02/07 17:04:12 by lleiria-         ###   ########.fr       */
+/*   Updated: 2022/02/08 12:27:11 by lleiria-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <unistd.h>
 #include <stdarg.h>
-#include "libft/libft.h"
 #include <limits.h>
 #include "ft_printf.h"
-
-int	ft_putchar(char c);
-
-int	ft_putstr(char *s);
-
-int	ft_putnbr(int n);
-
-int	ft_putpoint(void *p);
-
-int	ft_putnbr_base(unsigned int nbr, char *base, int nbase);
-
-int	ft_putun(long int nb);
 
 static int	convert(int n, const char *input, va_list args)
 {
@@ -80,8 +67,8 @@ int	ft_printf(const char *input, ...)
 	va_end(args);
 	return (counter);
 }
-
-/*int	main()
+/*
+int	main()
 {
 	printf("Hello world (normal)\n");
 	ft_printf("Hello World (normal)\n");
@@ -114,7 +101,7 @@ int	ft_printf(const char *input, ...)
     ft_printf("%u (com u positivo)\n", 10);
 }*/
 
-int main()
+/*int main()
 {
     system("clear");
     char chr = 'D';
@@ -174,8 +161,8 @@ int main()
     text_original = printf("Hex Number (Upper) (-) -> %X\n", hex_number_neg);
     printf("%d\n", text_original);
     //%p
-    /*text_original = printf("Addres Pointer -> %p\n", ULONG_MAX);
-    printf("%d\n", text_original);*/
+    text_original = printf("Addres Pointer -> %p\n", ULONG_MAX);
+    printf("%d\n", text_original);
     text_original = printf("Addres Pointer (Null) -> %p\n", addr_null);
     printf("%d\n", text_original);
     text_original = printf("--------------------------\n");
@@ -225,4 +212,4 @@ int main()
     text_fake = ft_printf("Addres Pointer (Null) -> %p\n", addr_null);
     ft_printf("%d\n", text_fake);
 	printf("--------------------------\n");
-}
+}*/

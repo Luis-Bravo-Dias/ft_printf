@@ -6,7 +6,7 @@
 /*   By: lleiria- <lleiria-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 12:02:45 by lleiria-          #+#    #+#             */
-/*   Updated: 2022/02/07 16:55:40 by lleiria-         ###   ########.fr       */
+/*   Updated: 2022/02/08 11:57:15 by lleiria-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	ft_putchar(char c);
 int	ft_putstr(char *s);
 int	ft_putnbr(int n);
 int	ft_putpoint(void *p);
-int	ft_putnbr_base(unsigned int nbr, char *base, int nbase);
+int	ft_putnbr_base(unsigned int nbr, char *base, unsigned int nbase);
 int	ft_putun(long int nb);
 
 #endif

@@ -6,13 +6,11 @@
 /*   By: lleiria- <lleiria-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 15:06:10 by lleiria-          #+#    #+#             */
-/*   Updated: 2022/02/07 16:15:48 by lleiria-         ###   ########.fr       */
+/*   Updated: 2022/02/08 12:19:10 by lleiria-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_putchar(char c);
-
-int	ft_putstr(char *s);
+#include "ft_printf.h"
 
 int	ft_putnbr_point(unsigned long int val, char *base)
 {

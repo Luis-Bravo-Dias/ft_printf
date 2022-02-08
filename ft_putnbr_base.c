@@ -6,11 +6,11 @@
 /*   By: lleiria- <lleiria-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 15:56:00 by lleiria-          #+#    #+#             */
-/*   Updated: 2022/02/07 16:57:45 by lleiria-         ###   ########.fr       */
+/*   Updated: 2022/02/08 12:18:57 by lleiria-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_putchar(char c);
+#include "ft_printf.h"
 
 int	ft_putnbr_base(unsigned int nbr, char *base, unsigned int nbase)
 {
